@@ -1,3 +1,4 @@
+require 'erb'
 require 'yaml'
 
 module Timetable
@@ -18,7 +19,8 @@ module Timetable
     def self.load_config
       # Load all YAML files in our path into a hash, then return it
       Dir[File.join(path, "*.yml")].inject({}) do |hash, file|
-        hash.merge(YAML.load_file(file))
+        conf = YAML.load(ERB.new(File.read(file)).result)
+        hash.merge(conf)
       end
     end
   end
