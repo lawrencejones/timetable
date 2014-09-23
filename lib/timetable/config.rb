@@ -20,7 +20,7 @@ module Timetable
       # Load all YAML files in our path into a hash, then return it
       Dir[File.join(path, "*.yml")].inject({}) do |hash, file|
         conf = YAML.load(ERB.new(File.read(file)).result)
-        hash.merge(conf)
+        hash.merge!(conf)
       end
     end
   end
